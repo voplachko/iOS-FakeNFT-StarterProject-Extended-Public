@@ -7,7 +7,7 @@ struct RatingView: View {
     let rating: Int
 
     var body: some View {
-        HStack(spacing: Constants.spacing) {
+        HStack(spacing: Spacing.x0_5) {
             ForEach(1...Self.maxRating, id: \.self) { index in
                 Image(systemName: "star.fill")
                     .resizable()
@@ -31,15 +31,14 @@ struct RatingView: View {
 
 private enum Constants {
     static let starSize: CGFloat = 12
-    static let spacing: CGFloat = 2
 }
 
 #Preview {
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: Spacing.x2) {
         ForEach(0...5, id: \.self) { rating in
             RatingView(rating: rating)
         }
     }
-    .padding()
+    .padding(Spacing.x4)
     .background(.ypWhite)
 }

@@ -17,3 +17,7 @@
 "Sort.byPrice" = "По цене";
 "Sort.byRating" = "По рейтингу";
 "Sort.byNftCount" = "По количеству NFT";
+"Nft.like" = "Добавить в избранное";
+"Nft.unlike" = "Убрать из избранного";
+"Nft.addToCart" = "Добавить в корзину";
+"Nft.removeFromCart" = "Убрать из корзины";

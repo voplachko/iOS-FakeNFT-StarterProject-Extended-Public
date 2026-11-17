@@ -7,7 +7,7 @@ struct FullScreenLoader: View {
             .controlSize(.large)
             .tint(.ypBlack)
             .frame(width: Constants.boxSize, height: Constants.boxSize)
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: Constants.cornerRadius))
+            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: Radius.large))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .contentShape(Rectangle())
     }
@@ -15,7 +15,6 @@ struct FullScreenLoader: View {
 
 private enum Constants {
     static let boxSize: CGFloat = 82
-    static let cornerRadius: CGFloat = 16
 }
 
 private struct LoadingOverlayModifier: ViewModifier {
