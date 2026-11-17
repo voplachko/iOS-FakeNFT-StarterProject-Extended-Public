@@ -8,3 +8,5 @@
 "Error.repeat" = "Повторить";
 "Error.title" = "Ошибка";
 "Rating.accessibility" = "Рейтинг %d из %d";
+"Web.loading" = "Загрузка страницы";
+"Common.back" = "Назад";
