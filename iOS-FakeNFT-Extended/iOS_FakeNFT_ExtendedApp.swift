@@ -5,6 +5,7 @@ import SwiftUI
 struct iOS_FakeNFT_ExtendedApp: App {
     @State private var servicesAssembly: ServicesAssembly
     @State private var userStore: UserStore
+    @State private var isSplashVisible = true
 
     init() {
         let assembly = ServicesAssembly(
@@ -20,12 +21,25 @@ struct iOS_FakeNFT_ExtendedApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(servicesAssembly)
-                .environment(userStore)
-                .task {
-                    await userStore.load()
+            ZStack {
+                ContentView()
+                    .task {
+                        await userStore.load()
+                    }
+
+                if isSplashVisible {
+                    SplashView(isReady: isInitialLoadFinished) {
+                        isSplashVisible = false
+                    }
+                    .zIndex(1)
                 }
+            }
+            .environment(servicesAssembly)
+            .environment(userStore)
         }
+    }
+
+    private var isInitialLoadFinished: Bool {
+        userStore.loadState == .loaded || userStore.loadState == .failed
     }
 }
