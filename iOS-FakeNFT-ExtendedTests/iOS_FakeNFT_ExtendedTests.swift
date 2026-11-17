@@ -279,3 +279,119 @@ final class OrderServiceTests: XCTestCase {
         XCTAssertEqual(requests.first?.formFields, ["nfts": .array([])])
     }
 }
+
+private struct StubError: Error {}
+
+/// Профиль, который умеет падать на PUT.
+private actor ProfileServiceStub: ProfileService {
+    var shouldFail = false
+    private(set) var sentLikes: [[String]] = []
+    private var profile = Profile(id: "1", name: "", avatar: "", description: "", website: "", nfts: [], likes: ["1"])
+
+    func setShouldFail(_ value: Bool) { shouldFail = value }
+
+    func loadProfile() async throws -> Profile { profile }
+
+    func updateLikes(_ ids: [String]) async throws -> Profile {
+        sentLikes.append(ids)
+        if shouldFail { throw StubError() }
+        return profile
+    }
+
+    func updateProfile(name: String?, description: String?, website: String?, avatar: String?) async throws -> Profile {
+        profile
+    }
+}
+
+private actor OrderServiceStub: OrderService {
+    var shouldFail = false
+    private(set) var sentNfts: [[String]] = []
+
+    func setShouldFail(_ value: Bool) { shouldFail = value }
+
+    func loadOrder() async throws -> Order {
+        if shouldFail { throw StubError() }
+        return Order(id: "1", nfts: ["10", "11"])
+    }
+
+    func updateOrder(nfts: [String]) async throws -> Order {
+        sentNfts.append(nfts)
+        if shouldFail { throw StubError() }
+        return Order(id: "1", nfts: nfts)
+    }
+}
+
+@MainActor
+final class UserStoreTests: XCTestCase {
+    func testLoadFillsLikesAndCart() async {
+        let store = UserStore(profileService: ProfileServiceStub(), orderService: OrderServiceStub())
+
+        await store.load()
+
+        XCTAssertEqual(store.loadState, .loaded)
+        XCTAssertEqual(store.likedIds, ["1"])
+        XCTAssertEqual(store.cartIds, ["10", "11"])
+    }
+
+    func testLoadFailure() async {
+        let orders = OrderServiceStub()
+        await orders.setShouldFail(true)
+        let store = UserStore(profileService: ProfileServiceStub(), orderService: orders)
+
+        await store.load()
+
+        XCTAssertEqual(store.loadState, .failed)
+        XCTAssertNotNil(store.lastError)
+    }
+
+    func testToggleLikeIsOptimisticAndSendsFullList() async {
+        let profiles = ProfileServiceStub()
+        let store = UserStore(profileService: profiles, orderService: OrderServiceStub())
+        await store.load()
+
+        let task = store.toggleLike("2")
+        XCTAssertTrue(store.isLiked("2"), "Лайк виден сразу, до ответа сервера")
+        await task.value
+
+        let sent = await profiles.sentLikes
+        XCTAssertEqual(sent, [["1", "2"]])
+        XCTAssertTrue(store.isLiked("2"))
+    }
+
+    func testToggleLikeRollsBackOnError() async {
+        let profiles = ProfileServiceStub()
+        let store = UserStore(profileService: profiles, orderService: OrderServiceStub())
+        await store.load()
+        await profiles.setShouldFail(true)
+
+        await store.toggleLike("1").value
+
+        XCTAssertTrue(store.isLiked("1"), "Снятый лайк вернулся после ошибки")
+        XCTAssertNotNil(store.lastError)
+    }
+
+    func testCartRequestsAreSerialized() async {
+        let orders = OrderServiceStub()
+        let store = UserStore(profileService: ProfileServiceStub(), orderService: orders)
+        await store.load()
+
+        store.toggleCart("12")
+        await store.toggleCart("10").value
+
+        let sent = await orders.sentNfts
+        XCTAssertEqual(sent.last, ["11", "12"], "Последний PUT содержит итоговое состояние")
+        XCTAssertEqual(store.cartIds, ["11", "12"])
+    }
+
+    func testToggleCartRollsBackOnError() async {
+        let orders = OrderServiceStub()
+        let store = UserStore(profileService: ProfileServiceStub(), orderService: orders)
+        await store.load()
+        await orders.setShouldFail(true)
+
+        await store.toggleCart("12").value
+
+        XCTAssertFalse(store.isInCart("12"))
+        XCTAssertEqual(store.cartIds, ["10", "11"])
+    }
+}

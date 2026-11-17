@@ -101,4 +101,5 @@ extension TabBarView {
 #Preview {
     TabBarView()
         .environment(ServicesAssembly(networkClient: DefaultNetworkClient(), nftStorage: NftStorageImpl()))
+        .environment(UserStore.preview())
 }
