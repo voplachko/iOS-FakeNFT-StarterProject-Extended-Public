@@ -10,3 +10,10 @@
 "Rating.accessibility" = "Рейтинг %d из %d";
 "Web.loading" = "Загрузка страницы";
 "Common.back" = "Назад";
+"Sort.title" = "Сортировка";
+"Sort.close" = "Закрыть";
+"Sort.byName" = "По имени";
+"Sort.byTitle" = "По названию";
+"Sort.byPrice" = "По цене";
+"Sort.byRating" = "По рейтингу";
+"Sort.byNftCount" = "По количеству NFT";
