@@ -1,5 +1,4 @@
 import Foundation
-import OSLog
 
 enum NetworkClientError: Error {
     case httpStatusCode(Int)
@@ -15,56 +14,40 @@ protocol NetworkClient: Sendable {
 }
 
 actor DefaultNetworkClient: NetworkClient {
-    private static let logger = Logger(subsystem: "FakeNFT", category: "Network")
-
     private let session: URLSession
     private let decoder: JSONDecoder
     private let encoder: JSONEncoder
     private let formEncoder: FormURLEncoder
+    private let logger: NetworkLogger
+    /// Номер запроса в логе — чтобы сопоставить REQUEST и RESPONSE при параллельной загрузке.
+    private var requestCounter = 0
 
     init(
         session: URLSession = URLSession.shared,
         decoder: JSONDecoder = JSONDecoder(),
         encoder: JSONEncoder = JSONEncoder(),
-        formEncoder: FormURLEncoder = FormURLEncoder()
+        formEncoder: FormURLEncoder = FormURLEncoder(),
+        logger: NetworkLogger = NetworkLogger()
     ) {
         self.session = session
         self.decoder = decoder
         self.encoder = encoder
         self.formEncoder = formEncoder
+        self.logger = logger
     }
 
     func send(request: NetworkRequest) async throws -> Data {
-        let urlRequest = try create(request: request)
-        let method = urlRequest.httpMethod ?? "GET"
-        let path = urlRequest.url?.path ?? "-"
-
-        let data: Data
-        let response: URLResponse
-        do {
-            (data, response) = try await session.data(for: urlRequest)
-        } catch {
-            if !error.isCancellation {
-                Self.logger.error("\(method) \(path) failed: \(error.localizedDescription)")
-            }
-            throw error
-        }
-
-        guard let response = response as? HTTPURLResponse else {
-            throw NetworkClientError.urlSessionError
-        }
-        guard 200 ..< 300 ~= response.statusCode else {
-            let body = String(data: data.prefix(300), encoding: .utf8) ?? ""
-            Self.logger.error("\(method) \(path) → \(response.statusCode) \(body)")
-            throw NetworkClientError.httpStatusCode(response.statusCode)
-        }
-        Self.logger.debug("\(method) \(path) → \(response.statusCode)")
-        return data
+        try await perform(request).data
     }
 
     func send<T: Decodable>(request: NetworkRequest) async throws -> T {
-        let data = try await send(request: request)
-        return try await parse(data: data)
+        let (data, id) = try await perform(request)
+        do {
+            return try decoder.decode(T.self, from: data)
+        } catch {
+            logger.logDecodingError(error, type: T.self, data: data, id: id)
+            throw NetworkClientError.parsingError
+        }
     }
 
     // MARK: - Private
@@ -86,20 +69,39 @@ actor DefaultNetworkClient: NetworkClient {
             urlRequest.httpBody = dtoEncoded
         }
         urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
-        if RequestConstants.token.isEmpty {
-            Self.logger.fault("RequestConstants.token is empty — server will reject requests")
-        }
-        urlRequest.addValue(RequestConstants.token, forHTTPHeaderField: "X-Practicum-Mobile-Token")
+        urlRequest.addValue(RequestConstants.token, forHTTPHeaderField: NetworkLogger.tokenHeader)
 
         return urlRequest
     }
 
-    private func parse<T: Decodable>(data: Data) async throws -> T {
+    private func perform(_ request: NetworkRequest) async throws -> (data: Data, id: Int) {
+        let urlRequest = try create(request: request)
+        requestCounter += 1
+        let id = requestCounter
+        logger.logRequest(urlRequest, id: id)
+
+        let clock = ContinuousClock()
+        let start = clock.now
+        let data: Data
+        let response: URLResponse
         do {
-            return try decoder.decode(T.self, from: data)
+            (data, response) = try await session.data(for: urlRequest)
         } catch {
-            throw NetworkClientError.parsingError
+            if !error.isCancellation {
+                logger.logError(error, request: urlRequest, id: id, duration: clock.now - start)
+            }
+            throw error
         }
+
+        guard let response = response as? HTTPURLResponse else {
+            throw NetworkClientError.urlSessionError
+        }
+        logger.logResponse(response, data: data, request: urlRequest, id: id, duration: clock.now - start)
+
+        guard 200 ..< 300 ~= response.statusCode else {
+            throw NetworkClientError.httpStatusCode(response.statusCode)
+        }
+        return (data, id)
     }
 }
 

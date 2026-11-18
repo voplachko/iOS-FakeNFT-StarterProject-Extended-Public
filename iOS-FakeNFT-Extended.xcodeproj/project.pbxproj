@@ -16,6 +16,7 @@
 		F1A0B0C02E0A001000000072 /* ProfileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A001000000071 /* ProfileServiceTests.swift */; };
 		F1A0B0C02E0A001000000062 /* SortOptionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A001000000061 /* SortOptionsTests.swift */; };
 		F1A0B0C02E0A001000000052 /* PriceFormattingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A001000000051 /* PriceFormattingTests.swift */; };
+		F1A0B0C02E0A001300000004 /* NetworkLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A001300000003 /* NetworkLoggerTests.swift */; };
 		F1A0B0C02E0A001000000042 /* FormURLEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A001000000041 /* FormURLEncoderTests.swift */; };
 		F1A0B0C02E0A001000000032 /* NetworkModelsDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A001000000031 /* NetworkModelsDecodingTests.swift */; };
 		F1A0B0C02E0A001000000022 /* ServiceStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A001000000021 /* ServiceStubs.swift */; };
@@ -70,6 +71,7 @@
 		F1A0B0C02E0A00020000000A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A000200000009 /* User.swift */; };
 		F1A0B0C02E0A00020000000C /* PaymentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A00020000000B /* PaymentResult.swift */; };
 		F1A0B0C02E0A00020000000E /* String+APIURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A00020000000D /* String+APIURL.swift */; };
+		F1A0B0C02E0A001300000002 /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A001300000001 /* NetworkLogger.swift */; };
 		F1A0B0C02E0A000300000002 /* FormURLEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A000300000001 /* FormURLEncoder.swift */; };
 		F1A0B0C02E0A000300000004 /* ProfileUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A000300000003 /* ProfileUpdate.swift */; };
 		F1A0B0C02E0A000400000002 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A000400000001 /* ProfileService.swift */; };
@@ -116,6 +118,7 @@
 		F1A0B0C02E0A001000000071 /* ProfileServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileServiceTests.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A001000000061 /* SortOptionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOptionsTests.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A001000000051 /* PriceFormattingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceFormattingTests.swift; sourceTree = "<group>"; };
+		F1A0B0C02E0A001300000003 /* NetworkLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerTests.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A001000000041 /* FormURLEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormURLEncoderTests.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A001000000031 /* NetworkModelsDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkModelsDecodingTests.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A001000000021 /* ServiceStubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceStubs.swift; sourceTree = "<group>"; };
@@ -171,6 +174,7 @@
 		F1A0B0C02E0A000200000009 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A00020000000B /* PaymentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentResult.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A00020000000D /* String+APIURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+APIURL.swift"; sourceTree = "<group>"; };
+		F1A0B0C02E0A001300000001 /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A000300000001 /* FormURLEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormURLEncoder.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A000300000003 /* ProfileUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdate.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A000400000001 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
@@ -238,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				F1A0B0C02E0A001000000041 /* FormURLEncoderTests.swift */,
+				F1A0B0C02E0A001300000003 /* NetworkLoggerTests.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -428,6 +433,7 @@
 				ABC5E1A32C31F800002B4068 /* NetworkClient.swift */,
 				ABC5E1A52C31F815002B4068 /* NetworkRequest.swift */,
 				F1A0B0C02E0A000300000001 /* FormURLEncoder.swift */,
+				F1A0B0C02E0A001300000001 /* NetworkLogger.swift */,
 			);
 			path = NetworkClient;
 			sourceTree = "<group>";
@@ -679,6 +685,7 @@
 				ABC5E1E42C32055B002B4068 /* ErrorView.swift in Sources */,
 				ABC5E1A62C31F815002B4068 /* NetworkRequest.swift in Sources */,
 				F1A0B0C02E0A000300000002 /* FormURLEncoder.swift in Sources */,
+				F1A0B0C02E0A001300000002 /* NetworkLogger.swift in Sources */,
 				ABC5E1D52C320446002B4068 /* NftDetailInput.swift in Sources */,
 				ABC5E16E2C31F5AF002B4068 /* ContentView.swift in Sources */,
 				ABC5E1B92C31FD51002B4068 /* TestCatalogView.swift in Sources */,
@@ -731,6 +738,7 @@
 				F1A0B0C02E0A001000000022 /* ServiceStubs.swift in Sources */,
 				F1A0B0C02E0A001000000032 /* NetworkModelsDecodingTests.swift in Sources */,
 				F1A0B0C02E0A001000000042 /* FormURLEncoderTests.swift in Sources */,
+				F1A0B0C02E0A001300000004 /* NetworkLoggerTests.swift in Sources */,
 				F1A0B0C02E0A001000000052 /* PriceFormattingTests.swift in Sources */,
 				F1A0B0C02E0A001000000062 /* SortOptionsTests.swift in Sources */,
 				F1A0B0C02E0A001000000072 /* ProfileServiceTests.swift in Sources */,
