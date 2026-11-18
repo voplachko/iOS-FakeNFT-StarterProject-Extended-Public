@@ -21,3 +21,5 @@
 "Nft.unlike" = "Убрать из избранного";
 "Nft.addToCart" = "Добавить в корзину";
 "Nft.removeFromCart" = "Убрать из корзины";
+"Error.loadData" = "Не удалось получить данные";
+"Error.cancel" = "Отмена";

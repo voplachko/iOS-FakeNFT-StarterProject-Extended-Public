@@ -80,3 +80,12 @@ actor DefaultNetworkClient: NetworkClient {
         }
     }
 }
+
+extension Error {
+    /// Отмена задачи: Swift Concurrency или URLSession. Такие ошибки не показываем пользователю.
+    var isCancellation: Bool {
+        if self is CancellationError { return true }
+        if let urlError = self as? URLError, urlError.code == .cancelled { return true }
+        return false
+    }
+}
