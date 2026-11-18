@@ -20,6 +20,7 @@
 		F1A0B0C02E0A001000000032 /* NetworkModelsDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A001000000031 /* NetworkModelsDecodingTests.swift */; };
 		F1A0B0C02E0A001000000022 /* ServiceStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A001000000021 /* ServiceStubs.swift */; };
 		F1A0B0C02E0A001000000012 /* NetworkClientStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A001000000011 /* NetworkClientStubs.swift */; };
+		F1A0B0C02E0A001100000002 /* CatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A001100000001 /* CatalogView.swift */; };
 		F1A0B0C02E0A000F00000002 /* CatalogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A000F00000001 /* CatalogViewModel.swift */; };
 		F1A0B0C02E0A000D00000004 /* Radius.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A000D00000003 /* Radius.swift */; };
 		F1A0B0C02E0A000D00000002 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A000D00000001 /* Spacing.swift */; };
@@ -28,6 +29,7 @@
 		ABC5E1702C31F5AF002B4068 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABC5E16F2C31F5AF002B4068 /* Assets.xcassets */; };
 		ABC5E1732C31F5AF002B4068 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABC5E1722C31F5AF002B4068 /* Preview Assets.xcassets */; };
 		ABC5E1872C31F5B0002B4068 /* iOS_FakeNFT_ExtendedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC5E1862C31F5B0002B4068 /* iOS_FakeNFT_ExtendedUITests.swift */; };
+		F1A0B0C02E0A001200000002 /* ActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A001200000001 /* ActionSheet.swift */; };
 		F1A0B0C02E0A000B00000004 /* SortDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A000B00000003 /* SortDialog.swift */; };
 		ABC5E1972C31F656002B4068 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC5E1962C31F656002B4068 /* Colors.swift */; };
 		ABC5E1992C31F666002B4068 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC5E1982C31F666002B4068 /* Fonts.swift */; };
@@ -118,6 +120,7 @@
 		F1A0B0C02E0A001000000031 /* NetworkModelsDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkModelsDecodingTests.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A001000000021 /* ServiceStubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceStubs.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A001000000011 /* NetworkClientStubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientStubs.swift; sourceTree = "<group>"; };
+		F1A0B0C02E0A001100000001 /* CatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A000F00000001 /* CatalogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewModel.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A000D00000003 /* Radius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radius.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A000D00000001 /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
@@ -129,6 +132,7 @@
 		ABC5E1782C31F5B0002B4068 /* iOS-FakeNFT-ExtendedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS-FakeNFT-ExtendedTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABC5E1822C31F5B0002B4068 /* iOS-FakeNFT-ExtendedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS-FakeNFT-ExtendedUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABC5E1862C31F5B0002B4068 /* iOS_FakeNFT_ExtendedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_FakeNFT_ExtendedUITests.swift; sourceTree = "<group>"; };
+		F1A0B0C02E0A001200000001 /* ActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheet.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A000B00000003 /* SortDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortDialog.swift; sourceTree = "<group>"; };
 		ABC5E1962C31F656002B4068 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		ABC5E1982C31F666002B4068 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -271,6 +275,7 @@
 		F1A0B0C02E0A000F00000000 /* Catalog */ = {
 			isa = PBXGroup;
 			children = (
+				F1A0B0C02E0A001100000001 /* CatalogView.swift */,
 				F1A0B0C02E0A000F00000001 /* CatalogViewModel.swift */,
 			);
 			path = Catalog;
@@ -292,6 +297,7 @@
 			children = (
 				F1A0B0C02E0A000700000001 /* RatingView.swift */,
 				F1A0B0C02E0A000700000003 /* LoadingOverlay.swift */,
+				F1A0B0C02E0A001200000001 /* ActionSheet.swift */,
 				F1A0B0C02E0A000B00000003 /* SortDialog.swift */,
 			);
 			path = Components;
@@ -663,6 +669,7 @@
 				ABC5E1DD2C3204DC002B4068 /* CellsReusingUtils.swift in Sources */,
 				ABC5E1B52C31FC57002B4068 /* TabBarView.swift in Sources */,
 				F1A0B0C02E0A000F00000002 /* CatalogViewModel.swift in Sources */,
+				F1A0B0C02E0A001100000002 /* CatalogView.swift in Sources */,
 				F1A0B0C02E0A000900000006 /* SplashView.swift in Sources */,
 				F1A0B0C02E0A000900000004 /* SplashHaptics.swift in Sources */,
 				F1A0B0C02E0A000900000002 /* SplashTimeline.swift in Sources */,
@@ -680,6 +687,7 @@
 				F1A0B0C02E0A000D00000004 /* Radius.swift in Sources */,
 				F1A0B0C02E0A000D00000002 /* Spacing.swift in Sources */,
 				F1A0B0C02E0A000B00000004 /* SortDialog.swift in Sources */,
+				F1A0B0C02E0A001200000002 /* ActionSheet.swift in Sources */,
 				F1A0B0C02E0A000700000004 /* LoadingOverlay.swift in Sources */,
 				F1A0B0C02E0A000700000002 /* RatingView.swift in Sources */,
 				ABC5E1A42C31F800002B4068 /* NetworkClient.swift in Sources */,

@@ -30,7 +30,7 @@ enum CatalogSortOption: String, SortOption {
 
     var title: String {
         switch self {
-        case .name: NSLocalizedString("Sort.byName", comment: "")
+        case .name: NSLocalizedString("Sort.byTitle", comment: "")
         case .nftCount: NSLocalizedString("Sort.byNftCount", comment: "")
         }
     }

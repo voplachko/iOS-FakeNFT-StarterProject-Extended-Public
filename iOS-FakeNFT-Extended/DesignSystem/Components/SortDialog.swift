@@ -5,18 +5,17 @@ extension View {
         isPresented: Binding<Bool>,
         selection: Binding<Option>
     ) -> some View {
-        confirmationDialog(
-            Text(NSLocalizedString("Sort.title", comment: "")),
+        actionSheet(
             isPresented: isPresented,
-            titleVisibility: .visible
-        ) {
-            ForEach(Option.allCases) { option in
-                Button(option.title) {
-                    selection.wrappedValue = option
+            title: NSLocalizedString("Sort.title", comment: ""),
+            actions: Option.allCases.map { option in
+                ActionSheetAction(id: option.id, title: option.title) {
+                    withAnimation(.snappy(duration: 0.4)) {
+                        selection.wrappedValue = option
+                    }
                 }
             }
-            Button(NSLocalizedString("Sort.close", comment: ""), role: .cancel) {}
-        }
+        )
     }
 
     /// Кнопка сортировки в правой части тулбара + диалог. Выбор сохраняется снаружи (@AppStorage).
@@ -53,6 +52,7 @@ private struct SortableModifier<Option: SortOption>: ViewModifier {
                 }
             }
             .sortDialog(isPresented: $isPresented, selection: $selection)
+            .sensoryFeedback(.selection, trigger: selection)
     }
 }
 

@@ -2,6 +2,7 @@ import SwiftUI
 import UIKit
 
 struct TabBarView: View {
+    @Environment(ServicesAssembly.self) private var servicesAssembly
     @State private var selectedTab: Tab = .catalog
 
     init() {
@@ -17,7 +18,7 @@ struct TabBarView: View {
             .tag(Tab.profile)
 
             NavigationStack {
-                TestCatalogView()
+                CatalogView(service: servicesAssembly.collectionsService)
             }
             .tabItem { Tab.catalog.label }
             .tag(Tab.catalog)

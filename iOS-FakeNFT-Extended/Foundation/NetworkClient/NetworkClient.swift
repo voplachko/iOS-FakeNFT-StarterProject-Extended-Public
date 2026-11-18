@@ -1,4 +1,5 @@
 import Foundation
+import OSLog
 
 enum NetworkClientError: Error {
     case httpStatusCode(Int)
@@ -14,6 +15,8 @@ protocol NetworkClient: Sendable {
 }
 
 actor DefaultNetworkClient: NetworkClient {
+    private static let logger = Logger(subsystem: "FakeNFT", category: "Network")
+
     private let session: URLSession
     private let decoder: JSONDecoder
     private let encoder: JSONEncoder
@@ -33,13 +36,29 @@ actor DefaultNetworkClient: NetworkClient {
 
     func send(request: NetworkRequest) async throws -> Data {
         let urlRequest = try create(request: request)
-        let (data, response) = try await session.data(for: urlRequest)
+        let method = urlRequest.httpMethod ?? "GET"
+        let path = urlRequest.url?.path ?? "-"
+
+        let data: Data
+        let response: URLResponse
+        do {
+            (data, response) = try await session.data(for: urlRequest)
+        } catch {
+            if !error.isCancellation {
+                Self.logger.error("\(method) \(path) failed: \(error.localizedDescription)")
+            }
+            throw error
+        }
+
         guard let response = response as? HTTPURLResponse else {
             throw NetworkClientError.urlSessionError
         }
         guard 200 ..< 300 ~= response.statusCode else {
+            let body = String(data: data.prefix(300), encoding: .utf8) ?? ""
+            Self.logger.error("\(method) \(path) → \(response.statusCode) \(body)")
             throw NetworkClientError.httpStatusCode(response.statusCode)
         }
+        Self.logger.debug("\(method) \(path) → \(response.statusCode)")
         return data
     }
 
@@ -67,6 +86,9 @@ actor DefaultNetworkClient: NetworkClient {
             urlRequest.httpBody = dtoEncoded
         }
         urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
+        if RequestConstants.token.isEmpty {
+            Self.logger.fault("RequestConstants.token is empty — server will reject requests")
+        }
         urlRequest.addValue(RequestConstants.token, forHTTPHeaderField: "X-Practicum-Mobile-Token")
 
         return urlRequest

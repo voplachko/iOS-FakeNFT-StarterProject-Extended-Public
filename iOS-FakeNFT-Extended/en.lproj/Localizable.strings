@@ -7,7 +7,7 @@
 "Error.unknown" = "Произошла неизвестная ошибка";
 "Error.repeat" = "Повторить";
 "Error.title" = "Ошибка";
-"Rating.accessibility" = "Рейтинг %d из %d";
+"Rating.accessibility" = "Рейтинг %ld из %ld";
 "Web.loading" = "Загрузка страницы";
 "Common.back" = "Назад";
 "Sort.title" = "Сортировка";
@@ -23,3 +23,4 @@
 "Nft.removeFromCart" = "Убрать из корзины";
 "Error.loadData" = "Не удалось получить данные";
 "Error.cancel" = "Отмена";
+"Catalog.collectionTitle" = "%@ (%ld)";
