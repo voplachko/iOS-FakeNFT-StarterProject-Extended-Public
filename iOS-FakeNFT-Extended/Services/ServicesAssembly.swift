@@ -9,6 +9,9 @@ final class ServicesAssembly {
 
     let profileService: ProfileService
     let orderService: OrderService
+    let collectionsService: CollectionsService
+    /// Один экземпляр на приложение — общий кэш NFT для всех экранов.
+    let nftService: NftService
 
     init(
         networkClient: NetworkClient,
@@ -18,12 +21,7 @@ final class ServicesAssembly {
         self.nftStorage = nftStorage
         self.profileService = ProfileServiceImpl(networkClient: networkClient)
         self.orderService = OrderServiceImpl(networkClient: networkClient)
-    }
-
-    var nftService: NftService {
-        NftServiceImpl(
-            networkClient: networkClient,
-            storage: nftStorage
-        )
+        self.collectionsService = CollectionsServiceImpl(networkClient: networkClient)
+        self.nftService = NftServiceImpl(networkClient: networkClient, storage: nftStorage)
     }
 }
