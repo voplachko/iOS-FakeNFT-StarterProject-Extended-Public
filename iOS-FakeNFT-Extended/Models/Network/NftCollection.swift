@@ -7,6 +7,9 @@ struct NftCollection: Decodable, Sendable, Identifiable, Hashable {
     let nfts: [String]
     let description: String
     let author: String
+    /// Сайт автора коллекции (открывается во WebView).
+    var website: String?
 
     var coverURL: URL? { cover.apiURL }
+    var websiteURL: URL? { website?.apiURL }
 }

@@ -13,7 +13,6 @@ struct CatalogView: View {
         List(viewModel.sortedCollections) { collection in
             CatalogCell(collection: collection)
                 .background {
-                    // Переход без стрелки «›», которую List добавляет к NavigationLink.
                     NavigationLink(value: collection) { EmptyView() }
                         .opacity(0)
                 }
