@@ -52,6 +52,7 @@ struct NftCardView: View {
                 .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .disabled(userStore.isLikePending(nft.id))
         .sensoryFeedback(.selection, trigger: isLiked)
         .accessibilityLabel(Text(NSLocalizedString(isLiked ? "Nft.unlike" : "Nft.like", comment: "")))
     }
@@ -87,6 +88,7 @@ struct NftCardView: View {
                 .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .disabled(userStore.isCartPending(nft.id))
         .sensoryFeedback(.impact(weight: .light), trigger: isInCart)
         .accessibilityLabel(Text(NSLocalizedString(isInCart ? "Nft.removeFromCart" : "Nft.addToCart", comment: "")))
     }

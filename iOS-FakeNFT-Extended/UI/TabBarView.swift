@@ -3,6 +3,7 @@ import UIKit
 
 struct TabBarView: View {
     @Environment(ServicesAssembly.self) private var servicesAssembly
+    @Environment(UserStore.self) private var userStore
     @State private var selectedTab: Tab = .catalog
 
     init() {
@@ -36,6 +37,14 @@ struct TabBarView: View {
             .tag(Tab.statistics)
         }
         .tint(.ypBlue)
+        .alert(
+            Text(NSLocalizedString("Error.saveFailed", comment: "")),
+            isPresented: Bindable(userStore).isSyncErrorPresented
+        ) {
+            Button(NSLocalizedString("Common.ok", comment: ""), role: .cancel) {}
+        } message: {
+            Text(NSLocalizedString("Error.saveFailedMessage", comment: ""))
+        }
     }
 
     private static func configureAppearance() {

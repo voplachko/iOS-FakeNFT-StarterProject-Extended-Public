@@ -5,7 +5,8 @@ import Observation
 ///
 /// Изменения применяются сразу (оптимистично), затем на сервер уходит весь список.
 /// Запросы одного типа выполняются строго по очереди, чтобы более старый PUT
-/// не перезаписал более новый. При ошибке откатывается только изменённый id.
+/// не перезаписал более новый. Пока запрос по NFT не завершён, повторное нажатие
+/// по нему игнорируется. При ошибке откатывается только изменённый id и показывается алерт.
 @MainActor
 @Observable
 final class UserStore {
@@ -19,8 +20,20 @@ final class UserStore {
     private(set) var likedIds: Set<String> = []
     private(set) var cartIds: Set<String> = []
     private(set) var loadState: LoadState = .idle
-    /// Последняя ошибка синхронизации — для показа алерта.
-    var lastError: Error?
+
+    /// NFT, по которым сейчас идёт запрос, — их кнопки заблокированы.
+    private(set) var pendingLikeIds: Set<String> = []
+    private(set) var pendingCartIds: Set<String> = []
+
+    /// Не удалось загрузить лайки и корзину при старте.
+    private(set) var loadError: Error?
+    /// Не удалось сохранить лайк или корзину — показывается алертом, изменение уже откатено.
+    var syncError: Error?
+
+    var isSyncErrorPresented: Bool {
+        get { syncError != nil }
+        set { if !newValue { syncError = nil } }
+    }
 
     private let profileService: ProfileService
     private let orderService: OrderService
@@ -42,12 +55,21 @@ final class UserStore {
         cartIds.contains(id)
     }
 
+    func isLikePending(_ id: String) -> Bool {
+        pendingLikeIds.contains(id)
+    }
+
+    func isCartPending(_ id: String) -> Bool {
+        pendingCartIds.contains(id)
+    }
+
     // MARK: - Loading
 
     /// Загружает лайки из профиля и корзину из заказа параллельно.
     func load() async {
         guard loadState != .loading else { return }
         loadState = .loading
+        loadError = nil
         do {
             async let profile = profileService.loadProfile()
             async let order = orderService.loadOrder()
@@ -56,60 +78,68 @@ final class UserStore {
             cartIds = Set(loadedOrder.nfts)
             loadState = .loaded
         } catch {
-            lastError = error
+            loadError = error
             loadState = .failed
         }
     }
 
     // MARK: - Mutations
 
+    /// - Returns: задача синхронизации или `nil`, если по этому NFT уже идёт запрос.
     @discardableResult
-    func toggleLike(_ id: String) -> Task<Void, Never> {
-        let wasLiked = likedIds.contains(id)
-        setMembership(of: id, in: \.likedIds, to: !wasLiked)
-
-        let previous = likesSync
-        let task = Task { [weak self] in
-            await previous?.value
-            guard let self else { return }
-            do {
-                _ = try await profileService.updateLikes(likedIds.sorted())
-            } catch {
-                setMembership(of: id, in: \.likedIds, to: wasLiked)
-                lastError = error
-            }
+    func toggleLike(_ id: String) -> Task<Void, Never>? {
+        let service = profileService
+        return toggle(id, in: \.likedIds, pending: \.pendingLikeIds, queue: \.likesSync) { ids in
+            _ = try await service.updateLikes(ids.sorted())
         }
-        likesSync = task
-        return task
     }
 
+    /// - Returns: задача синхронизации или `nil`, если по этому NFT уже идёт запрос.
     @discardableResult
-    func toggleCart(_ id: String) -> Task<Void, Never> {
-        let wasInCart = cartIds.contains(id)
-        setMembership(of: id, in: \.cartIds, to: !wasInCart)
-
-        let previous = cartSync
-        let task = Task { [weak self] in
-            await previous?.value
-            guard let self else { return }
-            do {
-                _ = try await orderService.updateOrder(nfts: cartIds.sorted())
-            } catch {
-                setMembership(of: id, in: \.cartIds, to: wasInCart)
-                lastError = error
-            }
+    func toggleCart(_ id: String) -> Task<Void, Never>? {
+        let service = orderService
+        return toggle(id, in: \.cartIds, pending: \.pendingCartIds, queue: \.cartSync) { ids in
+            _ = try await service.updateOrder(nfts: ids.sorted())
         }
-        cartSync = task
-        return task
     }
 
     // MARK: - Private
 
-    private func setMembership(
-        of id: String,
-        in keyPath: ReferenceWritableKeyPath<UserStore, Set<String>>,
-        to isMember: Bool
-    ) {
+    private typealias IdsKeyPath = ReferenceWritableKeyPath<UserStore, Set<String>>
+
+    private func toggle(
+        _ id: String,
+        in ids: IdsKeyPath,
+        pending: IdsKeyPath,
+        queue: ReferenceWritableKeyPath<UserStore, Task<Void, Never>?>,
+        send: @escaping (Set<String>) async throws -> Void
+    ) -> Task<Void, Never>? {
+        guard !self[keyPath: pending].contains(id) else { return nil }
+
+        let wasMember = self[keyPath: ids].contains(id)
+        setMembership(of: id, in: ids, to: !wasMember)
+        self[keyPath: pending].insert(id)
+
+        let previous = self[keyPath: queue]
+        let task = Task { [weak self] in
+            await previous?.value
+            guard let self else { return }
+            do {
+                // Отправляем актуальный список на момент запроса — с учётом всех нажатий до него.
+                try await send(self[keyPath: ids])
+            } catch {
+                setMembership(of: id, in: ids, to: wasMember)
+                if !error.isCancellation {
+                    syncError = error
+                }
+            }
+            self[keyPath: pending].remove(id)
+        }
+        self[keyPath: queue] = task
+        return task
+    }
+
+    private func setMembership(of id: String, in keyPath: IdsKeyPath, to isMember: Bool) {
         if isMember {
             self[keyPath: keyPath].insert(id)
         } else {

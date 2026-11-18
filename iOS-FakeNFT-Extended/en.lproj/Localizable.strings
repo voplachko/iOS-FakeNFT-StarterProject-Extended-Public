@@ -27,3 +27,6 @@
 "Collection.author" = "Автор коллекции:";
 "Collection.authorHint" = "Открывает сайт автора";
 "Nft.open" = "Открыть NFT";
+"Error.saveFailed" = "Не удалось сохранить изменения";
+"Error.saveFailedMessage" = "Проверьте подключение к интернету и попробуйте ещё раз.";
+"Common.ok" = "ОК";
