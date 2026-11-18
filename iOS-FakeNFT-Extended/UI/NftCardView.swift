@@ -108,8 +108,17 @@ private struct CartIcon: View {
 
 private enum Constants {
     static let buttonSize: CGFloat = 40
-    /// Расстояние между колонками сетки — из макета (не кратно 4).
-    static let gridColumnSpacing: CGFloat = 9
+}
+
+/// Сетка карточек NFT — общая для экрана коллекции и коллекции пользователя.
+enum NftGrid {
+    /// Расстояние между колонками — из макета (не кратно 4).
+    static let columnSpacing: CGFloat = 9
+    static let rowSpacing: CGFloat = Spacing.x7
+    static let columns = Array(
+        repeating: GridItem(.flexible(), spacing: columnSpacing, alignment: .top),
+        count: 3
+    )
 }
 
 #if DEBUG
@@ -148,10 +157,7 @@ extension Nft {
         order: Order(id: "1", nfts: ["2"])
     )
     ScrollView {
-        LazyVGrid(
-            columns: Array(repeating: GridItem(.flexible(), spacing: Constants.gridColumnSpacing), count: 3),
-            spacing: Spacing.x7
-        ) {
+        LazyVGrid(columns: NftGrid.columns, spacing: NftGrid.rowSpacing) {
             ForEach(Nft.previews) { nft in
                 NftCardView(nft: nft)
             }

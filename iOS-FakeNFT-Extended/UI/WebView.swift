@@ -83,6 +83,7 @@ struct WebScreen: View {
                 }
             }
             .background(.ypWhite)
+            .toolbar(.visible, for: .navigationBar)
             .navigationBarBackButtonHidden(true)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

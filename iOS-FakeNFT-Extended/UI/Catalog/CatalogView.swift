@@ -3,6 +3,7 @@ import SwiftUI
 
 /// Экран «Каталог»: список коллекций NFT.
 struct CatalogView: View {
+    @Environment(ServicesAssembly.self) private var servicesAssembly
     @State private var viewModel: CatalogViewModel
 
     init(service: CollectionsService) {
@@ -34,8 +35,11 @@ struct CatalogView: View {
         .sortable(selection: $viewModel.sortOption)
         .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(for: NftCollection.self) { collection in
-            // TODO: заменить на CollectionView (задача 1.18).
-            PlaceholderView(title: collection.name)
+            CollectionView(
+                collection: collection,
+                collectionsService: servicesAssembly.collectionsService,
+                nftService: servicesAssembly.nftService
+            )
         }
         .alert(
             Text(NSLocalizedString("Error.loadData", comment: "")),
@@ -97,11 +101,15 @@ private enum Constants {
     NavigationStack {
         CatalogView(service: CollectionsServiceMock(delay: .seconds(1)))
     }
+    .environment(ServicesAssembly(networkClient: DefaultNetworkClient(), nftStorage: NftStorageImpl()))
+    .environment(UserStore.preview())
 }
 
 #Preview("Ошибка") {
     NavigationStack {
         CatalogView(service: CollectionsServiceMock(error: NetworkClientError.httpStatusCode(500)))
     }
+    .environment(ServicesAssembly(networkClient: DefaultNetworkClient(), nftStorage: NftStorageImpl()))
+    .environment(UserStore.preview())
 }
 #endif

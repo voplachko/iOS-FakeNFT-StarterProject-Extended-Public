@@ -24,3 +24,6 @@
 "Error.loadData" = "Не удалось получить данные";
 "Error.cancel" = "Отмена";
 "Catalog.collectionTitle" = "%@ (%ld)";
+"Collection.author" = "Автор коллекции:";
+"Collection.authorHint" = "Открывает сайт автора";
+"Nft.open" = "Открыть NFT";

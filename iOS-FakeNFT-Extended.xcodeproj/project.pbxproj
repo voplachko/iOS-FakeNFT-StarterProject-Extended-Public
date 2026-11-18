@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F1A0B0C02E0A001500000002 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A001500000001 /* CollectionView.swift */; };
 		F1A0B0C02E0A001400000002 /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A001400000001 /* CollectionViewModel.swift */; };
 		F1A0B0C02E0A001400000004 /* CollectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A001400000003 /* CollectionViewModelTests.swift */; };
 		F1A0B0C02E0A0010000000D2 /* CatalogViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A0010000000D1 /* CatalogViewModelTests.swift */; };
@@ -85,6 +86,7 @@
 		F1A0B0C02E0A000600000002 /* UserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A000600000001 /* UserStore.swift */; };
 		F1A0B0C02E0A000700000002 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A000700000001 /* RatingView.swift */; };
 		F1A0B0C02E0A000700000004 /* LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A000700000003 /* LoadingOverlay.swift */; };
+		F1A0B0C02E0A001500000004 /* UINavigationController+SwipeBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A001500000003 /* UINavigationController+SwipeBack.swift */; };
 		F1A0B0C02E0A000700000006 /* PriceFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A000700000005 /* PriceFormatting.swift */; };
 		F1A0B0C02E0A000800000002 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A000800000001 /* WebView.swift */; };
 		F1A0B0C02E0A000900000002 /* SplashTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0B0C02E0A000900000001 /* SplashTimeline.swift */; };
@@ -111,6 +113,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F1A0B0C02E0A001500000001 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionView.swift"; sourceTree = "<group>"; };
 		F1A0B0C02E0A001400000001 /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A001400000003 /* CollectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModelTests.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A0010000000D1 /* CatalogViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewModelTests.swift; sourceTree = "<group>"; };
@@ -190,6 +193,7 @@
 		F1A0B0C02E0A000600000001 /* UserStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStore.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A000700000001 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A000700000003 /* LoadingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingOverlay.swift; sourceTree = "<group>"; };
+		F1A0B0C02E0A001500000003 /* UINavigationController+SwipeBack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+SwipeBack.swift"; sourceTree = "<group>"; };
 		F1A0B0C02E0A000700000005 /* PriceFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceFormatting.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A000800000001 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		F1A0B0C02E0A000900000001 /* SplashTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashTimeline.swift; sourceTree = "<group>"; };
@@ -228,6 +232,7 @@
 		F1A0B0C02E0A001400000000 /* Collection */ = {
 			isa = PBXGroup;
 			children = (
+				F1A0B0C02E0A001500000001 /* CollectionView.swift */,
 				F1A0B0C02E0A001400000001 /* CollectionViewModel.swift */,
 			);
 			path = Collection;
@@ -403,6 +408,7 @@
 				ABC5E1A22C31F7E8002B4068 /* NetworkClient */,
 				ABC5E1A72C31FA90002B4068 /* DateFormatters+Presets.swift */,
 				F1A0B0C02E0A000B00000001 /* SortOptions.swift */,
+				F1A0B0C02E0A001500000003 /* UINavigationController+SwipeBack.swift */,
 				F1A0B0C02E0A000700000005 /* PriceFormatting.swift */,
 			);
 			path = Foundation;
@@ -689,6 +695,7 @@
 				ABC5E1DD2C3204DC002B4068 /* CellsReusingUtils.swift in Sources */,
 				ABC5E1B52C31FC57002B4068 /* TabBarView.swift in Sources */,
 				F1A0B0C02E0A001400000002 /* CollectionViewModel.swift in Sources */,
+				F1A0B0C02E0A001500000002 /* CollectionView.swift in Sources */,
 				F1A0B0C02E0A000F00000002 /* CatalogViewModel.swift in Sources */,
 				F1A0B0C02E0A001100000002 /* CatalogView.swift in Sources */,
 				F1A0B0C02E0A000900000006 /* SplashView.swift in Sources */,
@@ -740,6 +747,7 @@
 				ABC5E1A82C31FA90002B4068 /* DateFormatters+Presets.swift in Sources */,
 				F1A0B0C02E0A000B00000002 /* SortOptions.swift in Sources */,
 				F1A0B0C02E0A000700000006 /* PriceFormatting.swift in Sources */,
+				F1A0B0C02E0A001500000004 /* UINavigationController+SwipeBack.swift in Sources */,
 				ABC5E1D12C32042C002B4068 /* NftDetailPresenter.swift in Sources */,
 				ABC5E1B02C31FB90002B4068 /* RequestConstants.swift in Sources */,
 			);

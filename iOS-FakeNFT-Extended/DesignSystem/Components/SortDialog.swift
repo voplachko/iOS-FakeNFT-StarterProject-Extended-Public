@@ -31,7 +31,7 @@ struct SortButton: View {
     var body: some View {
         Button(action: action) {
             Image(.ic40Sort)
-                .font(.ypBold17)
+                .renderingMode(.template)
                 .foregroundStyle(.ypBlack)
         }
         .accessibilityLabel(Text(NSLocalizedString("Sort.title", comment: "")))
