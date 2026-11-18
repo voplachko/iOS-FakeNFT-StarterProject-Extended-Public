@@ -7,8 +7,11 @@ struct TabBarView: View {
     @State private var selectedTab: Tab = .catalog
 
     init() {
-        Self.configureAppearance()
+        _ = Self.appearanceConfigured
     }
+
+    /// Глобальный UIAppearance настраивается один раз, а не при каждой перерисовке корня.
+    private static let appearanceConfigured: Void = configureAppearance()
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -50,7 +53,7 @@ struct TabBarView: View {
     private static func configureAppearance() {
         let activeColor = UIColor(resource: ColorResource.ypBlue)
         let inactiveColor = UIColor(resource: ColorResource.ypBlack)
-        let titleFont = UIFont.systemFont(ofSize: 10, weight: .medium)
+        let titleFont = UIFont.ypMedium10
 
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()

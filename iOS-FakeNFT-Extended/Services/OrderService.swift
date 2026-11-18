@@ -40,8 +40,4 @@ actor OrderServiceMock: OrderService {
         return order
     }
 }
-
-extension Order {
-    static let preview = Order(id: "1", nfts: ["1", "2", "3"])
-}
 #endif

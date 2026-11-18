@@ -94,16 +94,4 @@ actor ProfileServiceMock: ProfileService {
         return profile
     }
 }
-
-extension Profile {
-    static let preview = Profile(
-        id: "1",
-        name: "Joaquin Phoenix",
-        avatar: "https://code.s3.yandex.net/landings-v2-ios-developer/space.PNG",
-        description: "Дизайнер из Казани, люблю цифровое искусство и бейглы.",
-        website: "https://practicum.yandex.ru/ios-developer",
-        nfts: ["1", "2", "3"],
-        likes: ["1"]
-    )
-}
 #endif

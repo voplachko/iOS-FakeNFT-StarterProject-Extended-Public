@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 extension Font {
     // Bold
@@ -13,4 +14,9 @@ extension Font {
 
     // Medium
     static let ypMedium10 = Font.system(size: 10, weight: .medium)
+}
+
+/// Те же токены для UIKit (таббар, экран NFT из шаблона).
+extension UIFont {
+    static let ypMedium10 = UIFont.systemFont(ofSize: 10, weight: .medium)
 }
